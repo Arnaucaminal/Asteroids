@@ -15,17 +15,19 @@ public class Bullet : MonoBehaviour
 
     public void Shoot(Vector2 direction)
     {
-        // La bala només necessita una força per afegir una vegada, ja que no tenen arrossegament per fer que deixin de moure's
+        // La bala nomï¿½s necessita una forï¿½a per afegir una vegada, ja que no tenen arrossegament per fer que deixin de moure's
         rb.AddForce(direction * speed);
 
-        // Destroy the bullet after it reaches it max lifetime
+        // Destrueix la bala despres de recorre la distancia maxima
         Destroy(gameObject, maxLifetime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Destrueix la bala tan bon punt xoqui amb qualsevol cosa
-        Destroy(gameObject);
+        if (collision.gameObject.CompareTag("Asteroid")){
+            // Destrueix la bala tan bon punt xoqui amb qualsevol cosa
+            Destroy(gameObject);
+        }
     }
 
 }

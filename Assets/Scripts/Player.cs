@@ -30,13 +30,13 @@ public class Player : MonoBehaviour
     {
         GameObject[] boundaries = GameObject.FindGameObjectsWithTag("Boundary");
 
-        // Desactiveu tots els límits si l'ajustament de pantalla està habilitat
+        // Desactiveu tots els lÃ­mits si l'ajustament de pantalla estï¿½ habilitat
         for (int i = 0; i < boundaries.Length; i++)
         {
             boundaries[i].SetActive(!screenWrapping);
         }
 
-        // Converteix els límits de l'espai de la pantalla en els límits de l'espai mundial
+        // Converteix els lï¿½mits de l'espai de la pantalla en els lï¿½mits de l'espai mundial
         screenBounds = new Bounds();
         screenBounds.Encapsulate(Camera.main.ScreenToWorldPoint(Vector3.zero));
         screenBounds.Encapsulate(Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0f)));
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        // Desactiveu les col·lisions durant uns segons després de la generació per assegurar-vos que el jugador tingui prou temps per allunyar-se dels asteroides amb seguretat.
+        // Desactiveu les colï¿½lisions durant uns segons desprï¿½s de la generaciï¿½ per assegurar-vos que el jugador tingui prou temps per allunyar-se dels asteroides amb seguretat.
         TurnOffCollisions();
         Invoke(nameof(TurnOnCollisions), respawnInvulnerability);
     }
@@ -92,7 +92,7 @@ public class Player : MonoBehaviour
 
     private void ScreenWrap()
     {
-        // Mou-te al costat oposat de la pantalla si el jugador supera els límits
+        // Mou-te al costat oposat de la pantalla si el jugador supera els lï¿½mits
         if (rb.position.x > screenBounds.max.x + 0.5f)
         {
             rb.position = new Vector2(screenBounds.min.x - 0.5f, rb.position.y);
@@ -113,7 +113,9 @@ public class Player : MonoBehaviour
 
     private void Shoot()
     {
-        Bullet bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+        float distanceX = 0.5f;
+        Vector3 posicionDesplazada = transform.position + transform.up * distanceX;
+        Bullet bullet = Instantiate(bulletPrefab, posicionDesplazada, transform.rotation);
         bullet.Shoot(transform.up);
     }
 

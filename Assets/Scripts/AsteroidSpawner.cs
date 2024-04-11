@@ -18,11 +18,12 @@ public class AsteroidSpawner : MonoBehaviour
     {
         for (int i = 0; i < amountPerSpawn; i++)
         {
-            // Trieu una direcció aleatòria des del centre del generador i genera l'asteroide a una distància
+            // Trieu una direcciï¿½ aleatï¿½ria des del centre del generador i genera l'asteroide a una distï¿½ncia
             Vector3 spawnDirection = Random.insideUnitCircle.normalized;
             Vector3 spawnPoint = transform.position + (spawnDirection * spawnDistance);
+            spawnPoint.z = 0f;
 
-            // Calcula una variància aleatòria en la rotació de l'asteroide que serà fa que canviï la seva trajectòria
+            // Calcula una variï¿½ncia aleatï¿½ria en la rotaciï¿½ de l'asteroide que serï¿½ fa que canviï¿½ la seva trajectï¿½ria
             float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
             Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
@@ -30,7 +31,7 @@ public class AsteroidSpawner : MonoBehaviour
             Asteroid asteroid = Instantiate(asteroidPrefab, spawnPoint, rotation);
             asteroid.size = Random.Range(asteroid.minSize, asteroid.maxSize);
 
-            // Estableix la trajectòria per moure's en la direcció del generador
+            // Estableix la trajectï¿½ria per moure's en la direcciï¿½ del generador
             Vector2 trajectory = rotation * -spawnDirection;
             asteroid.SetTrajectory(trajectory);
         }

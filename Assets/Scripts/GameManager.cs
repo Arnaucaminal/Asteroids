@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
         }
         else if (asteroid.size < 1.4f)
         {
-            SetScore(score + 50); // asteroide mitjà
+            SetScore(score + 50); // asteroide mitjï¿½
         }
         else
         {
