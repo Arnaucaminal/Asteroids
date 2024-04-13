@@ -1,3 +1,5 @@
+
+
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -16,7 +18,7 @@ public class Player : MonoBehaviour
     private float turnDirection;
 
     public float respawnDelay = 3f;
-    public float respawnInvulnerability = 3f;
+    public float respawnInvulnerability = 9f;
 
     public bool screenWrapping = true;
     private Bounds screenBounds;
@@ -42,10 +44,11 @@ public class Player : MonoBehaviour
         screenBounds.Encapsulate(Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0f)));
     }
 
-    private void OnEnable()
+    private void CanviTag()
     {
         // Desactiveu les col�lisions durant uns segons despr�s de la generaci� per assegurar-vos que el jugador tingui prou temps per allunyar-se dels asteroides amb seguretat.
         TurnOffCollisions();
+        Debug.Log("Respawn invulnerabilitat: " + respawnInvulnerability);
         Invoke(nameof(TurnOnCollisions), respawnInvulnerability);
     }
 
@@ -121,12 +124,12 @@ public class Player : MonoBehaviour
 
     private void TurnOffCollisions()
     {
-        gameObject.layer = LayerMask.NameToLayer("Ignore Collisions");
+        gameObject.tag = "Ignore Collisions";
     }
 
     private void TurnOnCollisions()
     {
-        gameObject.layer = LayerMask.NameToLayer("Player");
+        gameObject.tag = "Player";
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -136,8 +139,11 @@ public class Player : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.angularVelocity = 0f;
 
-            GameManager.Instance.OnPlayerDeath(this);
+            CanviTag();
+            //GameManager.Instance.OnPlayerDeath(this);
         }
     }
+
+   
 
 }

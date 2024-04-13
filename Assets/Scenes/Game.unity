@@ -1058,7 +1058,7 @@ MonoBehaviour:
   thrustSpeed: 1
   rotationSpeed: 0.1
   respawnDelay: 3
-  respawnInvulnerability: 3
+  respawnInvulnerability: 9
   screenWrapping: 1
 --- !u!1 &753108553
 GameObject:

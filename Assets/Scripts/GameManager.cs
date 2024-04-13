@@ -111,8 +111,14 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("player respawn: " + player.respawnDelay);
             Invoke(nameof(Respawn), player.respawnDelay);
         }
+    }
+
+    public void deathPlayer()
+    {
+        GameManager.Instance.OnPlayerDeath(player);
     }
 
 }

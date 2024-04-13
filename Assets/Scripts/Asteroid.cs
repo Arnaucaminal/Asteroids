@@ -24,21 +24,21 @@ public class Asteroid : MonoBehaviour
 
     private void Start()
     {
-        // Assigna propietats aleatòries perquè cada asteroide se senti únic
+        // Assigna propietats aleatÃ²ries perquÃ¨ cada asteroide se senti Ãºnic
         spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
         transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360f);
 
-        // Estableix l'escala i la massa de l'asteroide en funció de la mida assignada la física és més realista
+        // Estableix l'escala i la massa de l'asteroide en funciÃ³ de la mida assignada la fÃ­sica Ã©s mÃ©s realista
         transform.localScale = Vector3.one * size;
         rb.mass = size;
 
-        // Destrueix l'asteroide després que arribi a la seva vida útil màxima
+        // Destrueix l'asteroide desprÃ©s que arribi a la seva vida Ãºtil mÃ xima
         Destroy(gameObject, maxLifetime);
     }
 
     public void SetTrajectory(Vector2 direction)
     {
-        // L'asteroide només necessita una força per afegir una vegada, ja que no en tenen arrossegueu perquè deixin de moure's
+        // L'asteroide nomÃ©s necessita una forÃ§a per afegir una vegada, ja que no en tenen arrossegueu perquÃ¨ deixin de moure's
         rb.AddForce(direction * movementSpeed);
     }
 
@@ -46,7 +46,7 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            // Comproveu si l'asteroide és prou gran com per dividir-se per la meitat (les dues parts han de ser més grans que la mida mínima)
+            // Comproveu si l'asteroide Ã©s prou gran com per dividir-se per la meitat (les dues parts han de ser mÃ©s grans que la mida mÃ­nima)
             if ((size * 0.5f) >= minSize)
             {
                 CreateSplit();
@@ -55,14 +55,20 @@ public class Asteroid : MonoBehaviour
 
             GameManager.Instance.OnAsteroidDestroyed(this);
 
-            // Destrueix l'asteroide actual, ja que és substituït per dos asteroides nous o prou petits per ser destruïts per la bala
+            // Destrueix l'asteroide actual, ja que Ã©s substituÃ¯t per dos asteroides nous o prou petits per ser destruÃ¯ts per la bala
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            GameManager.Instance.deathPlayer();
+        }
+
     }
 
     private Asteroid CreateSplit()
     {
-        // Estableix la nova posició de l'asteroide perquè sigui la mateixa que l'asteroide actual però amb un lleuger desplaçament perquè no apareguin l'un dins l'altre
+        // Estableix la nova posiciÃ³ de l'asteroide perquÃ¨ sigui la mateixa que l'asteroide actual perÃ² amb un lleuger desplaÃ§ament perquÃ¨ no apareguin l'un dins l'altre
         Vector2 position = transform.position;
         position += Random.insideUnitCircle * 0.5f;
 
@@ -70,7 +76,7 @@ public class Asteroid : MonoBehaviour
         Asteroid half = Instantiate(this, position, transform.rotation);
         half.size = size * 0.5f;
 
-        // Estableix una trajectòria aleatòria
+        // Estableix una trajectÃ²ria aleatÃ²ria
         half.SetTrajectory(Random.insideUnitCircle.normalized);
 
         return half;
