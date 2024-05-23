@@ -5937,6 +5937,7 @@ MonoBehaviour:
   gameOverUI: {fileID: 791830987}
   scoreText: {fileID: 1777220944}
   livesText: {fileID: 1434357746}
+  score: 100
 --- !u!1 &791830987
 GameObject:
   m_ObjectHideFlags: 0

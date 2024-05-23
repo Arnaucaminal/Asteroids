@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -11,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text scoreText;
     [SerializeField] private Text livesText;
 
-    private int score;
+    public int score;
     private int lives;
 
     public int Score => score;
@@ -39,7 +40,8 @@ public class GameManager : MonoBehaviour
     {
         if (lives <= 0 && Input.GetKeyDown(KeyCode.Return))
         {
-            NewGame();
+            //NewGame();
+            SceneManager.LoadScene(2);
         }
     }
 
